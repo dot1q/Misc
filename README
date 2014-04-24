@@ -1,0 +1,21 @@
+This repo is used to simply hold file and snippets of code that may be useful in the future. 
+
+Current folders include:
+
+OSU: (Programs created for class. Will include bugs and errors as they are were most likely written with little knowledge or I was lazy and half assing everything.)
+ CS161\
+  -assignment1.cpp
+  -assignment2.cpp
+  -assignment3.cpp
+  -assignment4.cpp
+  -assignment5-pt1.cpp
+  -assignment5-pt2.cpp
+  -battleship.cpp
+  -hello.cpp
+  
+ OS162\
+  
+Ninite:
+ -audit.ps1
+ -update.ps1
+
