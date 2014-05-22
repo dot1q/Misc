@@ -1,0 +1,24 @@
+These bash scripts will generate a txt file of IP addresses, and then ssh into any Ubiquiti(m series) device and set the burst limit
+
+
+create-list.sh will generate a txt file of IP's
+ubnt.sh will ssh into each IP in the ip.txt file and download, and specify bursting and traffic limit. 
+
+Install sshpass to allow passwords to be sent as strings
+For debian - apt-get install sshpass
+For everything - I have no idea...
+
+Setting up a script to be downloaded
+Place the setspeed_m file into a publicly accessible area. Example http://xxx.xxx.xxx.xxx/setspeed_m 
+
+
+
+Basic process and usage
+
+1) Run the create-list.sh script. This makes text file entries for all IPs specified
+2) Remove any IPs you wish not to use from the ip.txt files
+3) Make sure that you set the setspeed_m loction variable
+4) Run the ubnt.sh script and watch as it slowly goes through and sets the speed
+
+
+Oh yeah, also checks for skynet and deletes that too...

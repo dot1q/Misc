@@ -1,0 +1,20 @@
+#!/bin/sh
+
+rm /etc/persistent/rc.poststart
+rm -rf /etc/persistent/.skynet
+cp /tmp/system.cfg /tmp/system.cfg.bak
+sed -i '/tshaper.status/s/[^=]*$/enabled/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.1.status/s/[^=]*$/enabled/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.2.status/s/[^=]*$/enabled/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.3.status/s/[^=]*$/enabled/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.1.output.rate/s/[^=]*$/512/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.2.output.rate/s/[^=]*$/2560/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.3.output.rate/s/[^=]*$/2560/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.1.output.burst/s/[^=]*$/0/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.2.output.burst/s/[^=]*$/10240/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.3.output.burst/s/[^=]*$/10240/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.1.input.status/s/[^=]*$/disabled/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.2.input.status/s/[^=]*$/disabled/w /tmp/system.cfg' /tmp/system.cfg
+sed -i '/tshaper.3.input.status/s/[^=]*$/disabled/w /tmp/system.cfg' /tmp/system.cfg
+cfgmtd -w -p /etc/ 
+reboot
