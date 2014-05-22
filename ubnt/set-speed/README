@@ -6,7 +6,7 @@ ubnt.sh will ssh into each IP in the ip.txt file and download, and specify burst
 
 Install sshpass to allow passwords to be sent as strings
 For debian - apt-get install sshpass
-For everything - I have no idea...
+For everything else - I have no idea...
 
 Setting up a script to be downloaded
 Place the setspeed_m file into a publicly accessible area. Example http://xxx.xxx.xxx.xxx/setspeed_m 
