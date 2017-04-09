@@ -1,0 +1,9 @@
+V:\assignment_2\code\Assignment_2\Assignment_2\bin\Debug\Assignment_2.exe.config
+V:\assignment_2\code\Assignment_2\Assignment_2\bin\Debug\Assignment_2.exe
+V:\assignment_2\code\Assignment_2\Assignment_2\bin\Debug\Assignment_2.pdb
+V:\assignment_2\code\Assignment_2\Assignment_2\obj\Debug\Assignment_2.Form1.resources
+V:\assignment_2\code\Assignment_2\Assignment_2\obj\Debug\Assignment_2.Properties.Resources.resources
+V:\assignment_2\code\Assignment_2\Assignment_2\obj\Debug\Assignment_2.csproj.GenerateResource.Cache
+V:\assignment_2\code\Assignment_2\Assignment_2\obj\Debug\Assignment_2.exe
+V:\assignment_2\code\Assignment_2\Assignment_2\obj\Debug\Assignment_2.pdb
+V:\assignment_2\code\Assignment_2\Assignment_2\obj\Debug\Assignment_2.csprojResolveAssemblyReference.cache

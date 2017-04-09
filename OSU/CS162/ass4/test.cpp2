@@ -1,0 +1,59 @@
+#include<iostream>
+#include<stdio.h>
+#include<iomanip>
+#include<fstream>
+
+using std::ios;
+
+void create_binary_file();
+
+int main(){
+
+	double therm_cond = 58.4;
+	double density = 0.321;
+	double specific_heat = 0.12;
+	
+	double start_temp =0, end_temp = 100;
+
+	int wire_length = 30;
+	int wire_sections = 30;
+	int time_intervals = 50;
+	double time_delta = .000335;
+
+	double u[wire_sections];
+	double x_delta = wire_sections/wire_length;
+
+	for(int i=0; i<wire_sections; i++){
+		u[i] = 0;
+	}
+	u[wire_sections-1] = end_temp;
+
+	/*for(int i=0; i<wire_sections; i++){
+		std::cout<<u[i]<<" ";
+	}*/
+	std::cout<<std::endl;
+
+	//create binary file crap
+	std::fstream file("heat_bin.dat", ios::binary | ios::in | ios::out | ios::trunc);
+
+	for(int i=1; i<=time_intervals; i++){
+		std::cout<<"Time: "<<i<<std::endl;
+		for(int x=1; x<=wire_sections-2; x++){
+			double output = (time_delta/(specific_heat * density)* therm_cond * ( u[x+1]- (2* u[x]) + u[x-1])/(x_delta*x_delta)+ u[x]);
+			u[x] = output;	
+			printf ("%4.2f ", output);
+			file.write ((const char*) &output, sizeof(float));
+//			std::cout<<output<<" ";
+		//do crap here
+		}
+		std::cout<<std::endl;
+	}
+
+return 0;
+}
+
+
+void create_binary_file(){
+	std::fstream output("heat_bin.dat", ios::binary | ios::in | ios::out | ios::trunc);
+
+}

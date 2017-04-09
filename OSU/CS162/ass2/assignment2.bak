@@ -1,0 +1,258 @@
+/*
+ * assignment2.cpp
+ *
+ *  Created on: Apr 21, 2014
+ *      Author: Gregory Brewster
+ */
+#include<iostream>
+#include<string>
+#include<cstdlib>
+#include"Players.h"
+#include"Cards.h"
+#include<cstdlib>
+#include<algorithm>
+#include<vector>
+
+using namespace std;
+
+//Function declaration
+int getPlayers();
+void setCards(Cards *cards);
+void setDeck(vector<int>& deck);
+void printCards(Cards *cards);
+void assignCards(Cards *cards, int playerNum, vector<int>& deck);
+void takeTurns(Cards *cards, Players *player, int playerNum, vector<int>& deck);
+void displayCards(Cards *cards, Players *player, int player2);
+void setupPlayers(Cards *cards, Players *player, int playerAmount, vector<int>& deck);
+int promptUser(Players *player, int playerAmount, int currentPlayer);
+int promptCards(Cards *cards,Players *player, int playerAmount, int currentPlayer);
+string translateSuit(int value);
+string translateDenomination(int value);
+int main(){
+	Cards *cards = new Cards[52];
+	vector<int>deck;
+
+	//Set up cards
+	setCards(cards);
+	setDeck(deck);
+
+	//Get number of players
+	int amountOfPlayers = getPlayers();
+	Players *player = new Players[amountOfPlayers];
+	setupPlayers(cards, player, amountOfPlayers, deck);
+
+	//play game
+	takeTurns(cards, player, amountOfPlayers, deck);
+	//print the cards
+	//printCards(cards);
+
+	return 0;
+}
+int promptCards(Cards *cards,Players *player, int playerAmount, int currentPlayer){
+	bool error = false;
+	do{
+		cout<<"You may ask for one of the following cards."<<endl;
+		for(int i=0; i<player[currentPlayer].getSize(); i++){
+			cout<<i<<") "<<translateDenomination(cards[player[currentPlayer].getCard(i)].getDenomination())<<endl;
+		}
+	}while(error == true);
+}
+
+int promptUser(Players *player, int playerAmount, int currentPlayer){
+	bool error = false;
+	string choice;
+	do{
+		cout<<"Current player is: "<<currentPlayer<<endl;
+		cout<<"Which user would you like to ask?: "<<endl;
+		for(int i=0; i<playerAmount; i++){
+			if(i != currentPlayer){
+				cout<<player[i].getID()<<") "<<player[i].getName()<<endl;
+			}
+		}
+		cin>>choice;
+		if(((atoi(choice.c_str())>=1) && (atoi(choice.c_str())<=(playerAmount))) && (atoi(choice.c_str())!=currentPlayer+1)){
+			error = false;
+			return atoi(choice.c_str()-1);
+		}else{
+			cout<<"ERROR!!! Try again dude."<<endl;
+			error = true;
+		}
+	}while(error == true);
+}
+
+void displayCards(Cards *cards, Players *player, int player2){
+	for(int i=0; i<player[player2].getSize(); i++){
+		int cardValue = player[player2].getCard(i);
+//		cout<<player[player2].getCard(i)<<endl;
+		cout<<translateDenomination(cards[cardValue].getDenomination())<<" of "<<translateSuit(cards[cardValue].getSuit())<<endl;
+	}
+}
+void takeTurns(Cards *cards, Players *player,int playerNum, vector<int>& deck){
+	bool winner = false;
+	int choosenPlayer, choosenCard;
+	while(winner == false){
+		for(int i=0; i<playerNum; i++){
+			cout<<"Starting turn for "<<player[i].getName()<<endl; 
+			choosenPlayer = promptUser(player, playerNum, i);
+			choosenCard = promptCards(cards, player, playerNum, i);
+			cout<<"Here are your current cards: "<<endl;
+			displayCards(cards, player,i);
+			//prompt user for input
+		}//end for loop
+	}//end while loop
+}
+
+void setupPlayers(Cards *cards, Players *player, int playerAmount, vector<int>& deck){
+	for(int i=0; i<playerAmount; i++){
+		int cardIndex =0, cardValue =0;
+		string name = "null player";
+		cout<<"Please enter the name for player "<<i+1<<": ";
+		cin>>name;
+		player[i].setName(name);
+		player[i].setID(i+1);
+		for(int j=0; j<7; j++){
+			cardIndex = rand() % deck.size();
+//			cout<<deck[cardIndex]<<endl;
+//			cout<<translateSuit(cards[cardValue].getSuit())<<endl;
+			cardValue = deck[cardIndex];
+			cout<<translateDenomination(cards[cardValue].getDenomination())<<" of "<<translateSuit(cards[cardValue].getSuit())<<endl;
+			player[i].addCard(cardValue);
+				for(int x=0; x<deck.size(); x++){
+					if(deck[x] == cardValue)
+						deck.erase(deck.begin()+x);
+				}
+			vector<int>(deck).swap(deck);
+		}
+	}
+/*
+                 cout<<"Remaining cards in deck: "<<endl;
+                 for(int j=0; j<deck.size(); j++){
+                         cout<<deck[j]<<endl; 
+                }
+
+	for(int j=0; j<playerAmount; j++){
+		player[j].removeCard(0);
+		cout<<player[j].getName()<<endl;
+		for(int x=0; x<player[j].getSize(); x++){
+			cout<<player[j].getCard(x)<<endl;
+		}
+	}
+*/
+}
+
+
+void setDeck(vector<int>& deck){
+	for(int i=0; i<52; i++){
+		deck.push_back(i);
+	}
+}
+
+int getPlayers(){
+	string numberOfPlayers;
+	bool error = false;
+	cout<<"Welcome to Go fish. Before we get started playing, we will need to do a bit of setting up."<<endl;
+	do{
+		cout<<"Please enter the amount of players that will be playing(2-6): ";
+		cin>>numberOfPlayers;
+
+		if(atoi(numberOfPlayers.c_str()) >= 2 && atoi(numberOfPlayers.c_str()) <=6){
+			//Number is valid
+			error = false;
+
+		}else{
+			//Number is not valid
+			error = true;
+			cout<<"Error! You did not enter a proper number \n Please try again..."<<endl;
+		}
+
+	}while(error == true);
+	return atoi(numberOfPlayers.c_str());
+
+}
+
+void setCards(Cards *cards){
+	int counter = 0;
+	for(int i=0; i<4; i++){
+		for(int j=0; j<13; j++){
+			cards[counter].setCards((i+1),(j+1));
+			counter++;
+		}
+	}
+
+
+}
+
+void printCards(Cards *cards){
+	for(int i=0; i<52; i++){
+		cout<<"Card "<<i+1<<" is suit "<<cards[i].getSuit()<<" with the denomination of "<<cards[i].getDenomination()<<" and is assigned to player "<<cards[i].getHolder()<<endl;
+	}
+
+}
+
+
+string translateSuit(int value){
+	//cout<<"tranlsate code is: "<<value<<endl;
+	string suit;
+	switch(value){
+		case 1:
+			suit="Hearts";
+			break;
+		case 2:
+			suit="Diamonds";
+			break;
+		case 3:
+			suit="Spades";
+			break;
+		case 4:
+			suit="Clubs";
+			break;
+	}
+return suit;
+}
+
+string translateDenomination(int value){
+	string denomination;
+	switch(value){
+		case 1:
+			denomination="Ace";
+			break;
+		case 2:
+			denomination="2";
+			break;
+		case 3:
+			denomination="3";
+			break;
+		case 4:
+			denomination="4";
+			break;
+		case 5:
+			denomination="5";
+			break;
+		case 6:
+			denomination="6";
+			break;
+		case 7:
+			denomination="7";
+			break;
+		case 8:
+			denomination="8";
+			break;
+		case 9:
+			denomination="9";
+			break;
+		case 10:
+			denomination="10";
+			break;
+		case 11: 
+			denomination="Jack";
+			break;
+		case 12:
+			denomination="Queen";
+			break;
+		case 13:
+			denomination="King";
+			break;
+	}
+	return denomination;
+}
+

@@ -1,0 +1,11 @@
+1. Totally, 8+(8+1)+7 = 24 units will be cost for 16 consecutive push operations.
+   For 32 consecutive push operations, 8+(8+1)+7+(16+1)+15 = 56 units will be needed.
+   O(n). Because when N gets larger, the copy and push operations will be continuously performed until the capacity can hold N elements.
+
+2. It will cost 8+(8+1)+1+(10+1)+1+(12+1)+1+(14+1)+1 = 60 units for 16 pushes.
+   For 32, the cost will be 8+(8+1)+1+(10+1)+1+(12+1)+1+(14+1)+1+(16+1)+1+(18+1)+1+...+(28+1)+1+(30+1)+1=500 units.
+   The big-oh complexity is O(n^2).
+
+3. First execute N/2 times of Push to fill the array, then repeatedly run Push and Pop each once in sequence. 
+   The array will continuously double and shrink by half of the capacity as the response to Push and Pop. 
+   One way to avoid this problem is to shrink the capacity to, for example, 1.5 times of the current size of the array.         

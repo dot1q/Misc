@@ -1,0 +1,132 @@
+Across the trees I see the
+Buds blooming in May          
+
+I walk across sand
+And find myself blistering
+In the hot hot heat
+
+Falling to the ground
+I watch a leaf settle down
+In a bed of brown.
+
+It's cold and I wait
+For someone to shelter me
+And take me from here.
+
+I hear crackling
+Crunch of today's new found day
+And know it won't last
+
+So I will leave it
+At bay; and hope for the best
+This bitter new day
+
+
+
+Assignment #6: Hash Table Implementation of a Concordance
+
+Due Sunday 30 Nov before midnight
+   � NO LATE ASSIGNMENTS WILL BE ACCEPTED
+ 
+For this assignment, you will complete the hash-map with chaining as specified by the provided header file. Chapter 12 and worksheet 38 will be good resources for completing this assignment. After completing the hash-map implementation you will write a concordance program in your main.c. A concordance counts the number of occurrences of each word in a document. For this assignment, we will work with text files.  All the files required for this assignment are in this archive.  
+
+There are three files to work with for the programming portion:
+
+main.c is where you will write the concordance code.
+hashMap.h the header file.
+hashMap.c a mostly empty implementation file which you will fill in with your code.
+input1.txt an example text file which you can use to test your concordance implementation.
+output1.txt shows the results of running the concordance application on input1.txt. Your test on FLIP should generate similar results.
+Makefile Remember to 'save as'...do not copy/paste.
+
+I strongly recommend completing the hashMap.c component of the assignment before even thinking about the concordance. To complete the hashMap you will be making edits to hashMap.c. For those of you interested in experimenting with using your existing LinkedList for your hash map buckets, feel free to modify hashMap.h. You can also experiment with using a Dynamic Array instead of the static array in the hashMap.h file.
+
+To complete the concordance, you will be making changes to main.c.
+
+There are three functions provided for you in main.c
+getWord(FILE*) will parse out the next word from the file for you. Read the description of the function in the comments inside main.c for more information.
+stringHash1(char*) is the first function you will use for converting a key into an integer hash index.
+stringHash2(char*) is the second function for computing an integer hash index, part of your job will be to explain why stringHash2 is better then stringHash1.
+
+There is some code in the main function for giving you timing information as well. You should not need to change anything in order to use it. The purpose of the timing information will be made clear in the questions section.
+
+The worksheets and the function explanations should provide the information needed to complete this assignment, except for some more details on what a concordance is.
+
+Concordance
+
+The job of the concordance is to count how many times each word occurs in a document. You will implement a concordance using a hash table implementation of the Map interface. In this implementation, the hash table will store pointers to hashLinks (struct hashLink) which consist of a key (void *), value (void *), and pointer to the next link in the chain (struct hashLink *). The keys are the words and the values are the number of occurrences of each word.
+
+Note that the 'key' and 'value' are both of type void* , giving you (as the user of the hashMap) the freedom of type casting it into any desired type. For example, you can type cast it into int* to store the number of occurrences of each word in your concordance application. HINT: This is useful for being able to 'update' the count without removing and re-inserting the word key when you have a repeated word. For example, with a generic hashMap, upong seeing a word a second time, you could simply check to see if the hashMap contains the word (e.g. the key), and if so, get the value for that key, remove the key, and replace it with the same key, but a new value (incremented by 1). That is the typical way to use a hashMap. Alternatively, upon a repeat key, we can simply call atMap which returns the value for that particular key. Since we're storing int * for our values, we can simply get that value, dereference it, and add 1 to it in order to update our concordance count.
+
+You are provided with a function to retrieve words from a FILE pointer. It is your job to open this file (fopen()) and close this file (fclose()) but the reading of the file will be handled for you inside of getWord.
+
+Your concordance will run a loop until the end of the file is reached. In the loop, you will:
+Read in a word with getWord().
+If the word is already in your hash table then increment its number of occurrences.
+If the word is not in your hash table then insert it with an occurrence count of 1.
+After processing the text file into your concordance you will print all the words in your hash table. Please print the words in the following form with only one word on each line using the printKeyValues() function. (To see the actual structure of the hashMap, use the printMap() function )
+
+For the input file of: It was the best of times, It was the worst of times.
+
+best: 1
+
+It: 2
+
+was: 2
+
+the: 2
+
+of: 2
+
+worst: 1
+
+times: 2
+
+You may choose any order in which to print the words.
+
+
+Written Questions
+
+Your written questions will be handed in electronically as answers.pdf
+Give an example of two words that would hash to the same value using stringHash1() but would not using stringHash2().
+Why does the above make stringHash2() superior to stringHash1()?
+When you run your program on the same input file but one run using stringHash1() and on the other run using stringHash2(). Is it possible for your size() function to return different values?
+When you run your program on the same input file using stringHash1() on one run and using stringHash2() on another, is it possible for your tableLoad() function to return different values?
+When you run your program on the same input file with one run using stringHash1() and the other run using stringHash2(), is it possible for your emptyBuckets() function to return different values?
+Is there any difference in the number of 'empty buckets' when you change the table size from an even number, like 1000 to a prime like 997 ?
+Using the timing code provided to you, run you code on different size hash tables. How does changing the hash table size affect your performance? Please show results as a graph for various table sizes. For this test, remove the "resize" capability of the table.
+
+Sample Files
+
+When answering the written questions, it may help to use a larger text file than the one provided.   One source is Project Gutenberg.  Here are some suggestions that are in the archive:  
+ 
+Gadsby (not the famous one, but mayber more interesting :-)  
+Call of the Wild
+Anna Karenin  ("I'm Russian.  We like long stories"   :-)  
+
+
+Rubric (Total: 100 pts)
+free - 10
+insert - 12
+setTableSize: 10
+at - 6
+contains - 6
+remove - 10
+size - 1
+capacity - 1
+emptyBuckets - 2
+load - 1
+concordance - 10
+written questions(3 each) - 21
+compile - 10
+
+What to turn in via TEACH
+
+Please remember that your code must compile and execute on flip.engr.oregonstate.edu.  
+main.c
+hashMap.c
+hashMap.h
+answers.pdf
+Turn In Please submit via TEACH. 
+
+
